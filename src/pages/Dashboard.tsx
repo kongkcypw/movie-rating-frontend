@@ -89,7 +89,7 @@ const Dashboard: React.FC = () => {
                     <MovieTableAmoutEachYear movieData={movieAmountEachYear} />
                 </div>
                 <div className='col-span-5'>
-                    <h2 className="text-xl font-semibold mb-4">Movies released by year</h2>
+                    <h2 className="text-xl font-semibold mb-4">Movies rating</h2>
                     <MovieTableAmoutEachRate movieData={movieAmountEachRate} />
                 </div>
             </div>
