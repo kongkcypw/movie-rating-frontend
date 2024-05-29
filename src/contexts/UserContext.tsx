@@ -55,7 +55,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const logout = async () => {
         try{
             setIsFetchLoading(true)
-            const response = await axiosInstance.get('/api/auth/logout', {
+            const response = await axiosInstance.post('/api/auth/logout', {
                 withCredentials: true, 
             });
             if (response.status === 200) {
