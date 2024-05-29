@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { ErrorResponseObject, Movie, Rate } from '../../pages/ManagerMovieGUI';
 import { IoCloseCircleOutline } from "react-icons/io5";
 import ErrorMessageBox from '../response/ErrorMessageBox';
+import CustomAntYearPicker from '../CustomAntYearPicker';
 
 interface MovieAddModalProps {
   rateList: Rate[];
@@ -12,7 +13,7 @@ interface MovieAddModalProps {
 
 const MovieAddModal: React.FC<MovieAddModalProps> = ({ rateList, handleAddMovie, closeModal, errorState }) => {
   const [movieTitle, setMovieTitle] = useState<string>('');
-  const [yearReleased, setYearReleased] = useState<number | ''>('');
+  const [yearReleased, setYearReleased] = useState<string | ''>('');
   const [rating, setRating] = useState<string>('');
   const [imagePreview, setImagePreview] = useState<string | ''>('');
 
@@ -42,8 +43,8 @@ const MovieAddModal: React.FC<MovieAddModalProps> = ({ rateList, handleAddMovie,
         </div>
 
         {errorState.isError &&
-            <ErrorMessageBox errorState={errorState} />
-          }
+          <ErrorMessageBox errorState={errorState} />
+        }
 
         <div className='mt-4'>
           <div className='mb-4'>
@@ -72,15 +73,18 @@ const MovieAddModal: React.FC<MovieAddModalProps> = ({ rateList, handleAddMovie,
             }
           </div>
           <div className='mb-4'>
-            <label className='block text-gray-700'>Year Released:</label>
-            <input
-              type='number'
-              value={yearReleased}
-              onChange={(e) => setYearReleased(Number(e.target.value))}
-              className='w-full p-2 border border-gray-300 rounded mt-1'
-              required
-            />
+            <label className='block text-gray-700'>Year release:</label>
+            <div className='w-full  border'>
+              <CustomAntYearPicker
+                width={'820px'}
+                textMarginLeft={"0"}
+                selectedYear={yearReleased}
+                onChange={setYearReleased}
+              />
+            </div>
           </div>
+
+
           <div className='mb-4'>
             <label className='block text-gray-700'>Rating:</label>
             <select
