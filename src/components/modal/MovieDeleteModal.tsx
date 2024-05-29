@@ -1,5 +1,5 @@
 import React from 'react'
-import { Movie } from '../../pages/ManagerMovieCRUD';
+import { Movie } from '../../pages/ManagerMovieGUI';
 import { IoCloseCircleOutline } from "react-icons/io5";
 
 interface MovieDeleteModalProps {

@@ -6,6 +6,7 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
     withCredentials: true,
+    // baseURL: BASE_URL,
     baseURL: "https://movie-rating-backend.vercel.app",
     headers: { 'Content-Type': 'application/json' },
 })

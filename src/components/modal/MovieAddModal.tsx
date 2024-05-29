@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Movie, Rate } from '../../pages/ManagerMovieCRUD';
+import { Movie, Rate } from '../../pages/ManagerMovieGUI';
 import { IoCloseCircleOutline } from "react-icons/io5";
 
 interface MovieAddModalProps {

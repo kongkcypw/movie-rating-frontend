@@ -20,7 +20,7 @@ export interface Rate {
   rateDescription: string
 }
 
-const ManagerMovieCRUD: React.FC = ({ }) => {
+const ManagerMovieGUI: React.FC = ({ }) => {
 
   const [isLoading, setIsLoading] = useState<boolean | null>(null);
 
@@ -158,4 +158,4 @@ const ManagerMovieCRUD: React.FC = ({ }) => {
   )
 }
 
-export default ManagerMovieCRUD
+export default ManagerMovieGUI

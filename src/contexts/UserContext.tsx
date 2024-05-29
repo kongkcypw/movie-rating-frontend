@@ -1,5 +1,5 @@
 // UserContext.tsx
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode, SetStateAction, Dispatch } from 'react';
 import { axiosInstance } from '../api/axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ interface User {
 
 interface UserContextProps {
     user: User | null;
+    setUser: Dispatch<SetStateAction<User | null>>;
     fetchUserInfo: () => void;
     isFetchLoading: boolean | null;
     logout: () => void;
@@ -45,31 +46,38 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
                 setIsFetchLoading(false)
             }
         } catch (error) {
-            setUser(null);
+            setUser(null);;
             setIsFetchLoading(false)
         }
     };
+    
 
     const logout = async () => {
         try{
+            setIsFetchLoading(true)
             const response = await axiosInstance.get('/api/auth/logout', {
                 withCredentials: true, 
             });
             if (response.status === 200) {
+                setUser(null)
+                setIsFetchLoading(false)
                 navigate("/");
             } else {
+                setIsFetchLoading(false)
                 console.log(response)
             }
         } catch (error) {
             console.log(error);
+            setIsFetchLoading(false)
         }
     }
 
     const value = {
         user, 
+        setUser,
         fetchUserInfo,
         isFetchLoading,
-        logout
+        logout,
     }
 
     return (

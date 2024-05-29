@@ -13,7 +13,7 @@ interface CardCarouselProps {
 
 const CardCarousel: React.FC<CardCarouselProps> = ({ movieList, topic }) => {
     return (
-        <div className="mx-auto max-w-7xl py-6">
+        <div className="py-6">
             <div className=' border-l-4 border-l-blue-400 px-4 py-1 mb-4'>
                 <h1 className='text-2xl font-semibold'>{topic}</h1>
             </div>
