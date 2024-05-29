@@ -9,8 +9,6 @@ const UserNavbar: React.FC = () => {
                     <Link to="/">Movie Ratings</Link>
                 </div>
                 <div className="flex space-x-4">
-                    <Link to="/" className="text-white hover:text-gray-400">Home</Link>
-                    <Link to="/movies" className="text-white hover:text-gray-400">Movies</Link>
                     <Link to="/about" className="text-white hover:text-gray-400">About</Link>
                     <Link to="/login" className="text-white hover:text-gray-400">Login</Link>
                 </div>

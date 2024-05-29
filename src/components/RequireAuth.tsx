@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useUser } from '../hooks/useUser'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
+import LoadingAnimation from './animation/LoadingAnimation'
 
 interface RequireAuthProps {
   allowedPermissions: Array<number>
@@ -11,14 +12,12 @@ const RequireAuth: React.FC<RequireAuthProps> = ({ allowedPermissions }) => {
   const { user, fetchUserInfo, isFetchLoading } = useUser()
   const location = useLocation();
 
-  console.log(user);
-
   useEffect(() => {
     fetchUserInfo();
   }, [])
 
   if (!user && (isFetchLoading === null || isFetchLoading === true)) {
-    return <h1>Loading</h1>;
+    return <LoadingAnimation />;
   }
 
   if(!user && !isFetchLoading){
@@ -27,7 +26,7 @@ const RequireAuth: React.FC<RequireAuthProps> = ({ allowedPermissions }) => {
   }
 
   if (user && (isFetchLoading === null || isFetchLoading === true)) {
-    return <h1>Loading</h1>;
+    return <LoadingAnimation />;
   }
 
   if(user && !isFetchLoading){
