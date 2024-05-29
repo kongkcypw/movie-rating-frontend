@@ -3,7 +3,6 @@ import { ErrorResponseObject, Movie, Rate } from './ManagerMovieGUI';
 import { axiosInstance } from '../api/axios';
 import MovieAddModal from '../components/modal/MovieAddModal';
 import MovieEditModal from '../components/modal/MovieEditModal';
-// import MovieTableCRU from '../components/table/MovieTableCRU';
 import LoadingAnimation from '../components/animation/LoadingAnimation';
 import { AxiosError } from 'axios';
 import MovieTableCRUD from '../components/table/MovieTableCRUD';
