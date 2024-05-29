@@ -10,6 +10,7 @@ import React from "react";
 import StaffMovieGUI from "./pages/StaffMovieGUI";
 import About from "./pages/About";
 import Signup from "./pages/Signup";
+import TokenExpire from "./pages/TokenExpire";
 
 const Routes: React.FC = ({ }) => {
     return (
@@ -22,6 +23,7 @@ const Routes: React.FC = ({ }) => {
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/permission-denied" element={<PermissionDenied />} />
+                    <Route path="/token-expired" element={<TokenExpire />} />
                 </Route>
 
                 {/* Private Route: Role: Floor Staff */}

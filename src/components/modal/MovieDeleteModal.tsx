@@ -1,14 +1,16 @@
 import React from 'react'
-import { Movie } from '../../pages/ManagerMovieGUI';
+import { ErrorResponseObject, Movie } from '../../pages/ManagerMovieGUI';
 import { IoCloseCircleOutline } from "react-icons/io5";
+import ErrorMessageBox from '../response/ErrorMessageBox';
 
 interface MovieDeleteModalProps {
     selectedMovie: Movie | undefined;
     closeModal: () => void;
     handleDeleteMovie: (selectedMovie: Movie) => void;
+    errorState: ErrorResponseObject
 }
 
-const MovieDeleteModal: React.FC<MovieDeleteModalProps> = ({ selectedMovie, closeModal, handleDeleteMovie }) => {
+const MovieDeleteModal: React.FC<MovieDeleteModalProps> = ({ selectedMovie, closeModal, handleDeleteMovie, errorState }) => {
 
     const onDeleteClick = () => {
         if (selectedMovie) {
@@ -23,6 +25,10 @@ const MovieDeleteModal: React.FC<MovieDeleteModalProps> = ({ selectedMovie, clos
                     <h1 className='text-xl font-semibold'>Delete Movie</h1>
                     <button onClick={closeModal} className='text-slate-600 text-2xl rounded-full hover:bg-slate-100'><IoCloseCircleOutline /></button>
                 </div>
+                {errorState.isError &&
+                    <ErrorMessageBox errorState={errorState} />
+                }
+
                 <div className='mt-12 pb-12'>
                     <div className='flex justify-center'>
                         <img src={selectedMovie?.movieImageUrl} alt='Preview' className='w-auto h-48 object-cover' />
