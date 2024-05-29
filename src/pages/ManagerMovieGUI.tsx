@@ -57,6 +57,7 @@ const ManagerMovieGUI: React.FC = ({ }) => {
       setIsLoading(true);
       const response = await axiosInstance.get("/api/movie/get-all");
       if (response.status === 200) {
+        console.log(response.data.movie);
         setMovieList(response.data.movie);
         setRateList(response.data.rate);
         setIsLoading(false);
