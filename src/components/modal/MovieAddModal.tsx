@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
-import { Movie, Rate } from '../../pages/ManagerMovieGUI';
+import { ErrorResponseObject, Movie, Rate } from '../../pages/ManagerMovieGUI';
 import { IoCloseCircleOutline } from "react-icons/io5";
+import ErrorMessageBox from '../response/ErrorMessageBox';
 
 interface MovieAddModalProps {
   rateList: Rate[];
   handleAddMovie: (newMovie: Movie) => void;
   closeModal: () => void;
+  errorState: ErrorResponseObject
 }
 
-const MovieAddModal: React.FC<MovieAddModalProps> = ({ rateList, handleAddMovie, closeModal }) => {
+const MovieAddModal: React.FC<MovieAddModalProps> = ({ rateList, handleAddMovie, closeModal, errorState }) => {
   const [movieTitle, setMovieTitle] = useState<string>('');
   const [yearReleased, setYearReleased] = useState<number | ''>('');
   const [rating, setRating] = useState<string>('');
@@ -30,12 +32,18 @@ const MovieAddModal: React.FC<MovieAddModalProps> = ({ rateList, handleAddMovie,
   return (
     <div className='fixed flex start-0 top-0 justify-center z-20 bg-black bg-opacity-30 h-screen w-full'>
       <div className='relative bg-white rounded-lg max-w-4xl min-h-[70vh] w-full my-auto p-8'>
-        <div className='flex justify-between pb-4 border-b-2'>
-          <h1 className='text-xl font-semibold'>Add Movie</h1>
-          <button onClick={closeModal} className='text-slate-600 text-2xl rounded-full hover:bg-slate-100'>
-            <IoCloseCircleOutline />
-          </button>
+        <div className='pb-4 border-b-2'>
+          <div className='flex justify-between'>
+            <h1 className='text-xl font-semibold'>Add Movie</h1>
+            <button onClick={closeModal} className='text-slate-600 text-2xl rounded-full hover:bg-slate-100'>
+              <IoCloseCircleOutline />
+            </button>
+          </div>
         </div>
+
+        {errorState.isError &&
+            <ErrorMessageBox errorState={errorState} />
+          }
 
         <div className='mt-4'>
           <div className='mb-4'>

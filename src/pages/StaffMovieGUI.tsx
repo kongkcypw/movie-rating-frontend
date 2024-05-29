@@ -1,14 +1,25 @@
-import React, { useState, useEffect } from 'react'
-import { Movie, Rate } from './ManagerMovieGUI';
+import React, { useState, useEffect, Dispatch, SetStateAction } from 'react'
+import { ErrorResponseObject, Movie, Rate } from './ManagerMovieGUI';
 import { axiosInstance } from '../api/axios';
 import MovieAddModal from '../components/modal/MovieAddModal';
 import MovieEditModal from '../components/modal/MovieEditModal';
-import MovieTableCRU from '../components/table/MovieTableCRU';
+// import MovieTableCRU from '../components/table/MovieTableCRU';
 import LoadingAnimation from '../components/animation/LoadingAnimation';
+import { AxiosError } from 'axios';
+import MovieTableCRUD from '../components/table/MovieTableCRUD';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const initialErrorState = {
+    isError: false,
+    status: 200,
+    message: ""
+}
 
 const StaffMovieGUI: React.FC = ({ }) => {
 
     const [isLoading, setIsLoading] = useState<boolean | null>(null);
+    const [errorState, setErrorState] = useState<ErrorResponseObject>(initialErrorState);
 
     const [movieList, setMovieList] = useState<Movie[]>([]);
     const [rateList, setRateList] = useState<Rate[]>([]);
@@ -61,10 +72,19 @@ const StaffMovieGUI: React.FC = ({ }) => {
                 await fetchAllMovie();
                 setIsDisplayAddModal(false);
                 setIsLoading(false);
+                notifySuccess("Add movie success!");
             }
         } catch (error) {
-            console.log(error)
-            setIsLoading(false);
+            if (error instanceof AxiosError && error.response) {
+                const errorObject = {
+                    isError: true,
+                    status: error.response.status,
+                    message: error.response.data.message
+                }
+                setErrorState(errorObject)
+                setIsLoading(false);
+                setIsDisplayAddModal(true)
+            }
         }
     }
 
@@ -83,34 +103,71 @@ const StaffMovieGUI: React.FC = ({ }) => {
                 await fetchAllMovie();
                 setIsDisplayEditModal(false);
                 setIsLoading(false);
+                notifySuccess("Update success!");
             }
         } catch (error) {
-            console.log(error)
-            setIsLoading(false);
+            if (error instanceof AxiosError && error.response) {
+                const errorObject = {
+                    isError: true,
+                    status: error.response.status,
+                    message: error.response.data.message
+                }
+                setErrorState(errorObject)
+                setIsLoading(false);
+                setIsDisplayEditModal(true)
+            }
         }
     }
 
+    // Staff not accessible to deletem Leave it empty
+    const handleDeleteButton = async () => {
+
+    }
+
+    const handleCloseModal = (setState: Dispatch<SetStateAction<boolean>>) => {
+        setErrorState(initialErrorState);
+        setState(false);
+    }
+
+    const notifySuccess = (message: string) => toast.success(message, {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+        });
+
     return (
         <div>
+            <ToastContainer />
             <h1 className='text-2xl w-full px-4 font-semibold mb-8'>Movies</h1>
-            <MovieTableCRU
+            <MovieTableCRUD
                 movieList={movieList}
                 rateList={rateList}
                 handleAddButton={handleAddButton}
-                handleEditButton={handleEditButton} />
+                handleEditButton={handleEditButton}
+                handleDeleteButton={handleDeleteButton}
+                accessDeleteFunction={false} />
             {isDisplayAddModal === true &&
                 <MovieAddModal
                     rateList={rateList}
                     handleAddMovie={handleAddMovie}
-                    closeModal={() => setIsDisplayAddModal(false)}
+                    closeModal={() => handleCloseModal(setIsDisplayAddModal)}
+                    errorState={errorState}
                 />
             }
             {isDisplayEditModal === true &&
                 <MovieEditModal
                     selectedMovie={selectedMovie}
                     rateList={rateList}
-                    closeModal={() => setIsDisplayEditModal(false)}
-                    handleUpdateMovie={handleUpdateMovie} />}
+                    closeModal={() => handleCloseModal(setIsDisplayEditModal)}
+                    handleUpdateMovie={handleUpdateMovie}
+                    errorState={errorState}
+                />
+            }
             {isLoading && <LoadingAnimation />}
         </div>
     )

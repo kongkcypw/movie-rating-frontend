@@ -11,9 +11,10 @@ interface MovieTableCRUDProps {
     handleAddButton: () => void
     handleEditButton: (selected: any) => void;
     handleDeleteButton: (selected: any) => void;
+    accessDeleteFunction: boolean;
 }
 
-const MovieTableCRUD: React.FC<MovieTableCRUDProps> = ({ movieList, rateList, handleAddButton, handleEditButton, handleDeleteButton }) => {
+const MovieTableCRUD: React.FC<MovieTableCRUDProps> = ({ movieList, rateList, handleAddButton, handleEditButton, handleDeleteButton, accessDeleteFunction }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [itemsPerPage] = useState<number>(10);
     const [filteredMovies, setFilteredMovies] = useState<Movie[]>(movieList);
@@ -92,7 +93,7 @@ const MovieTableCRUD: React.FC<MovieTableCRUDProps> = ({ movieList, rateList, ha
                             <select
                                 value={searchRating}
                                 onChange={e => setSearchRating(e.target.value)}
-                                className="p-2 border border-gray-300 rounded"
+                                className="p-2 border border-gray-300 rounded focus:outline-none"
                             >
                                 <option value="">Select Rating</option>
                                 {rateList.map(rate => (
@@ -137,11 +138,14 @@ const MovieTableCRUD: React.FC<MovieTableCRUDProps> = ({ movieList, rateList, ha
                                         onClick={() => handleEditButton(movie)}>
                                         <span className='my-auto'>Edit</span>
                                     </button>
-                                    <button className='text-red-500 border border-red-500 px-2 rounded-sm
-                                        hover:bg-red-500 hover:text-white'
-                                        onClick={() => handleDeleteButton(movie)}>
-                                        <span className='my-auto'>Delete</span>
-                                    </button>
+                                    {accessDeleteFunction === true &&
+                                        <button className='text-red-500 border border-red-500 px-2 rounded-sm
+                                    hover:bg-red-500 hover:text-white'
+                                            onClick={() => handleDeleteButton(movie)}>
+                                            <span className='my-auto'>Delete</span>
+                                        </button>
+                                    }
+
                                 </div>
                             </td>
                         </tr>
