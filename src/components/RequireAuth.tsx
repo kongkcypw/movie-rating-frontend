@@ -16,25 +16,17 @@ const RequireAuth: React.FC<RequireAuthProps> = ({ allowedPermissions }) => {
     fetchUserInfo();
   }, [])
 
-  if (!user && (isFetchLoading === null || isFetchLoading === true)) {
+  if (isFetchLoading) {
     return <LoadingAnimation />;
   }
 
-  if(!user && !isFetchLoading){
-    // Add some modal to told that session expired
-    return <Navigate to="/login" state={{ from: location }} replace/>;
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (user && (isFetchLoading === null || isFetchLoading === true)) {
-    return <LoadingAnimation />;
-  }
-
-  if(user && !isFetchLoading){
-    const hasPermission = allowedPermissions.includes(user.permissionLevel);
-    console.log(user.permissionLevel)
-    if (!hasPermission) {
-      return <Navigate to="/permission-denied" state={{ from: location }} replace/>;
-    }
+  const hasPermission = allowedPermissions.includes(user.permissionLevel);
+  if (!hasPermission) {
+    return <Navigate to="/permission-denied" state={{ from: location }} replace />;
   }
 
 

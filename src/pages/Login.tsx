@@ -3,6 +3,7 @@ import { AxiosError } from 'axios';
 import { axiosInstance } from '../api/axios';
 import { useUser } from '../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
+import LoadingAnimation from '../components/animation/LoadingAnimation';
 
 const Login: React.FC = () => {
 
@@ -12,6 +13,8 @@ const Login: React.FC = () => {
 
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const [isError, setIsError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>('');
@@ -30,6 +33,7 @@ const Login: React.FC = () => {
 
     const handleSubmit = async(e: React.FormEvent) => {
         try {
+            setIsLoading(true);
             e.preventDefault();
             const bodyParams = {
                 username: username,
@@ -40,6 +44,7 @@ const Login: React.FC = () => {
             if (response.status === 200) {
                 setIsError(false)
                 fetchUserInfo();
+                setIsLoading(false);
                 if(response.data.permissionLevel === 0){
                     // Redirect to prev history
                     navigate("/");
@@ -50,6 +55,7 @@ const Login: React.FC = () => {
                 console.log(response);
             }
         } catch (error) {
+            setIsLoading(false);
             if(error instanceof AxiosError){
                 if(error.response && error.response.status === 400){
                     setErrorMessage("Email or password is invalid, please try again")
@@ -65,6 +71,7 @@ const Login: React.FC = () => {
 
     return (
         <div className='w-full min-h-screen flex items-center bg-slate-100'>
+            {isLoading && <LoadingAnimation />}
             <div className=' max-w-5xl h-auto mx-auto bg-slate-50 rounded-lg drop-shadow-md'>
                 <div className='grid grid-cols-8'>
                     <div className='col-span-4'>
