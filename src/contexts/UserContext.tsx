@@ -1,4 +1,3 @@
-// UserContext.tsx
 import React, { createContext, useState, ReactNode, SetStateAction, Dispatch } from 'react';
 import { axiosInstance } from '../api/axios';
 import { useNavigate } from 'react-router-dom';
@@ -23,9 +22,9 @@ interface UserProviderProps {
     children: ReactNode;
 }
 
-export const UserContext = createContext<UserContextProps | undefined>(undefined);
+const UserContext = createContext<UserContextProps | undefined>(undefined);
 
-export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
+const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
     const navigate = useNavigate();
 
@@ -86,3 +85,5 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
         </UserContext.Provider>
     );
 };
+
+export { UserProvider, UserContext };

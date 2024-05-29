@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Movie, Rate } from '../../pages/ManagerMovieGUI';
+import { ErrorResponseObject, Movie, Rate } from '../../pages/ManagerMovieGUI';
 import { IoCloseCircleOutline } from "react-icons/io5";
+import ErrorMessageBox from '../response/ErrorMessageBox';
 
 interface MovieEditModalProps {
     selectedMovie: Movie | undefined;
     closeModal: () => void;
     rateList: Rate[];
     handleUpdateMovie: (updatedMovie: Movie) => void;
+    errorState: ErrorResponseObject
 }
 
-const MovieEditModal: React.FC<MovieEditModalProps> = ({ selectedMovie, closeModal, rateList, handleUpdateMovie }) => {
+const MovieEditModal: React.FC<MovieEditModalProps> = ({ selectedMovie, closeModal, rateList, handleUpdateMovie, errorState }) => {
     const [movieTitle, setMovieTitle] = useState<string>('');
     const [yearReleased, setYearReleased] = useState<number | ''>('');
     const [rating, setRating] = useState<string>('');
@@ -45,6 +47,10 @@ const MovieEditModal: React.FC<MovieEditModalProps> = ({ selectedMovie, closeMod
                     <h1 className='text-xl font-semibold'>Edit Movie</h1>
                     <button onClick={closeModal} className='text-slate-600 text-2xl rounded-full hover:bg-slate-100'><IoCloseCircleOutline /></button>
                 </div>
+
+                {errorState.isError &&
+                    <ErrorMessageBox errorState={errorState} />
+                }
 
                 <div className='mt-4'>
                     <div className='mb-4'>
@@ -99,19 +105,19 @@ const MovieEditModal: React.FC<MovieEditModalProps> = ({ selectedMovie, closeMod
                     </div>
                 </div>
                 <div className='abosulute end-8 bottom-8 mt-8'>
-                        <div className='flex justify-end gap-4'>
-                            <button className='px-4 py-2 text-blue-500 border border-blue-500 bg-white rounded
+                    <div className='flex justify-end gap-4'>
+                        <button className='px-4 py-2 text-blue-500 border border-blue-500 bg-white rounded
                             hover:bg-slate-50'
-                                onClick={closeModal}>
-                                Cancel
-                            </button>
-                            <button className='px-4 py-2 bg-blue-500 text-white rounded
+                            onClick={closeModal}>
+                            Cancel
+                        </button>
+                        <button className='px-4 py-2 bg-blue-500 text-white rounded
                             hover:bg-blue-700'
-                                onClick={handleSubmit}>
-                                Save
-                            </button>
-                        </div>
+                            onClick={handleSubmit}>
+                            Save
+                        </button>
                     </div>
+                </div>
             </div>
         </div>
     );
