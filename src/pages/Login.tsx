@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
 
-    const { } = useUser()
+    const { fetchUserInfo } = useUser()
 
     const navigate = useNavigate();
 
@@ -35,13 +35,11 @@ const Login: React.FC = () => {
                 username: username,
                 password: password
             }
-            const response = await axiosInstance.post(`/api/auth/login`, bodyParams,
-                {
-                    withCredentials: true,
-                })
+            const response = await axiosInstance.post(`/api/auth/login`, bodyParams)
             console.log(response)
             if (response.status === 200) {
                 setIsError(false)
+                fetchUserInfo();
                 if(response.data.permissionLevel === 0){
                     // Redirect to prev history
                     navigate("/");
