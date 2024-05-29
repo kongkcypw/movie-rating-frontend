@@ -66,7 +66,7 @@ const Login: React.FC = () => {
     }
 
     return (
-        <div className='w-full min-h-screen flex items-center bg-slate-200'>
+        <div className='w-full min-h-screen flex items-center bg-slate-100'>
             <div className=' max-w-5xl h-auto mx-auto bg-slate-50 rounded-lg drop-shadow-md'>
                 <div className='grid grid-cols-8'>
                     <div className='col-span-4'>
