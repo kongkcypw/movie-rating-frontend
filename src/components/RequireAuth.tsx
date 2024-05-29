@@ -20,14 +20,17 @@ const RequireAuth: React.FC<RequireAuthProps> = ({ allowedPermissions }) => {
     return <LoadingAnimation />;
   }
 
-  if (!user) {
+  if (!user && isFetchLoading === false) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  const hasPermission = allowedPermissions.includes(user.permissionLevel);
-  if (!hasPermission) {
-    return <Navigate to="/permission-denied" state={{ from: location }} replace />;
+  if (user) {
+    const hasPermission = allowedPermissions.includes(user.permissionLevel);
+    if (!hasPermission) {
+      return <Navigate to="/permission-denied" state={{ from: location }} replace />;
+    }
   }
+
 
 
   return <><Outlet /></>;

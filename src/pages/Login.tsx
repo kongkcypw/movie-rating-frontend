@@ -7,7 +7,7 @@ import LoadingAnimation from '../components/animation/LoadingAnimation';
 
 const Login: React.FC = () => {
 
-    const { fetchUserInfo } = useUser()
+    const { setUser, fetchUserInfo } = useUser()
 
     const navigate = useNavigate();
 
@@ -45,9 +45,13 @@ const Login: React.FC = () => {
                 setIsError(false)
                 fetchUserInfo();
                 setIsLoading(false);
+                setUser(response.data);
                 if(response.data.permissionLevel === 0){
                     // Redirect to prev history
                     navigate("/");
+                }
+                else if(response.data.permissionLevel === 1){
+                    navigate("/floorstaff/movie/edit");
                 }
                 else if(response.data.permissionLevel === 2){
                     navigate("/manager/movie/edit");

@@ -4,15 +4,14 @@ import { IoIosArrowForward } from "react-icons/io";
 import { Movie, Rate } from '../../pages/ManagerMovieGUI';
 import { IoAddCircle } from "react-icons/io5";
 
-interface MovieTableCRUDProps {
+interface MovieTableCRUProps {
     movieList: Movie[];
     rateList: Rate[];
     handleAddButton: () => void
     handleEditButton: (selected: any) => void;
-    handleDeleteButton: (selected: any) => void;
 }
 
-const MovieTableCRUD: React.FC<MovieTableCRUDProps> = ({ movieList, rateList, handleAddButton, handleEditButton, handleDeleteButton }) => {
+const MovieTableCRU: React.FC<MovieTableCRUProps> = ({ movieList, rateList, handleAddButton, handleEditButton }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [itemsPerPage] = useState<number>(10);
     const [filteredMovies, setFilteredMovies] = useState<Movie[]>(movieList);
@@ -129,11 +128,6 @@ const MovieTableCRUD: React.FC<MovieTableCRUDProps> = ({ movieList, rateList, ha
                                         onClick={() => handleEditButton(movie)}>
                                         <span className='my-auto'>Edit</span>
                                     </button>
-                                    <button className='text-red-500 border border-red-500 px-2 rounded-sm
-                                        hover:bg-red-500 hover:text-white'
-                                        onClick={() => handleDeleteButton(movie)}>
-                                        <span className='my-auto'>Delete</span>
-                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -166,4 +160,4 @@ const MovieTableCRUD: React.FC<MovieTableCRUDProps> = ({ movieList, rateList, ha
     );
 }
 
-export default MovieTableCRUD;
+export default MovieTableCRU;
