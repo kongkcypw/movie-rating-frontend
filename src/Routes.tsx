@@ -11,6 +11,8 @@ import StaffMovieGUI from "./pages/StaffMovieGUI";
 import About from "./pages/About";
 import Signup from "./pages/Signup";
 import TokenExpire from "./pages/TokenExpire";
+import Dashboard from "./pages/Dashboard";
+import NotFound from "./pages/NotFound";
 
 const Routes: React.FC = ({ }) => {
     return (
@@ -24,11 +26,15 @@ const Routes: React.FC = ({ }) => {
                     <Route path="/about" element={<About />} />
                     <Route path="/permission-denied" element={<PermissionDenied />} />
                     <Route path="/token-expired" element={<TokenExpire />} />
+
+                    {/* Catch all */}
+                    <Route path="*" element={<NotFound />} />
                 </Route>
 
                 {/* Private Route: Role: Floor Staff */}
                 <Route element={<RequireAuth allowedPermissions={[1]} />}>
                     <Route element={<LayoutAdmin />}>
+                        <Route path="/floorstaff/dashboard" element={<Dashboard />} />
                         <Route path="/floorstaff/movie/edit" element={<StaffMovieGUI />} />
                     </Route>
                 </Route>
@@ -36,10 +42,10 @@ const Routes: React.FC = ({ }) => {
                 {/* Private Route: Role: Manager */}
                 <Route element={<RequireAuth allowedPermissions={[2]} />}>
                     <Route element={<LayoutAdmin />}>
+                        <Route path="/manager/dashboard" element={<Dashboard />} />
                         <Route path="/manager/movie/edit" element={<ManagerMovieGUI />} />
                     </Route>
                 </Route>
-
             </Router>
         </div>
     )

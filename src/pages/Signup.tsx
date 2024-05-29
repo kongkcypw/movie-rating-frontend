@@ -80,9 +80,14 @@ const SignUp: React.FC = () => {
             setIsLoading(false);
             if (error instanceof AxiosError) {
                 if (error.response && error.response.status === 400) {
-                    setErrorMessage("Invalid input, please try again");
-                } else if (error.response && error.response.status === 401) {
-                    setErrorMessage("No account found, please sign up");
+                    setErrorMessage("All input is require, please try again");
+                } else if (error.response && error.response.status === 409) {
+                    if(error.response.data.conflict === "username"){
+                        setErrorMessage("username is taken, please try again");
+                    }
+                    else{
+                        setErrorMessage("You email is already exist, please login");
+                    }        
                 }
                 console.log(error);
                 setIsError(true);
