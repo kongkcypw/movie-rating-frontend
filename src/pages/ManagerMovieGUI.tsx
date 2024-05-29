@@ -154,6 +154,7 @@ const ManagerMovieGUI: React.FC = ({ }) => {
       if (response.status === 200) {
         await fetchAllMovie();
         setIsDisplayDeleteModal(false);
+        notifySuccess("Delete movie success!");
       }
     } catch (error) {
       if (error instanceof AxiosError && error.response) {
@@ -165,7 +166,6 @@ const ManagerMovieGUI: React.FC = ({ }) => {
         setErrorState(errorObject)
         setIsLoading(false);
         setIsDisplayDeleteModal(true)
-        notifySuccess("Delete movie success!");
       }
     }
   }
