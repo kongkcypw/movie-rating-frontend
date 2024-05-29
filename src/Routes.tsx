@@ -9,7 +9,7 @@ import LayoutUser from "./components/layout/LayoutUser";
 import React from "react";
 import StaffMovieGUI from "./pages/StaffMovieGUI";
 import About from "./pages/About";
-import Register from "./pages/Register";
+import Signup from "./pages/Signup";
 
 const Routes: React.FC = ({ }) => {
     return (
@@ -19,7 +19,7 @@ const Routes: React.FC = ({ }) => {
                 <Route element={<LayoutUser />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
+                    <Route path="/signup" element={<Signup />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/permission-denied" element={<PermissionDenied />} />
                 </Route>

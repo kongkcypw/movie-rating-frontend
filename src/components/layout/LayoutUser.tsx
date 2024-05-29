@@ -16,7 +16,7 @@ const LayoutUser: React.FC = ({ }) => {
         <div className="w-full min-h-screen bg-slate-100">
             {isFetchLoading && <LoadingAnimation />}
             <UserNavbar />
-            <div className='mx-auto max-w-7xl'>
+            <div className='mx-auto'>
                 <Outlet />
             </div>
         </div>

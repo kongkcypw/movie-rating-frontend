@@ -3,6 +3,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { Movie, Rate } from '../../pages/ManagerMovieGUI';
 import { IoAddCircle } from "react-icons/io5";
+import { IoSearchOutline } from "react-icons/io5";
 
 interface MovieTableCRUDProps {
     movieList: Movie[];
@@ -61,39 +62,46 @@ const MovieTableCRUD: React.FC<MovieTableCRUDProps> = ({ movieList, rateList, ha
         <div className="container mx-auto p-4">
             <div className="mb-4">
                 <div className='flex justify-between'>
-                    <button className='bg-blue-400 text-white px-4 flex' onClick={handleAddButton}>
-                        <IoAddCircle className='my-auto text-lg'/>
+                    <button className='bg-blue-400 text-white px-4 flex rounded-sm' onClick={handleAddButton}>
+                        <IoAddCircle className='my-auto text-lg' />
                         <span className='my-auto ml-2 font-semibold'>
                             ADD NEW
                         </span>
                     </button>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="Search by Title"
-                            value={searchTitle}
-                            onChange={handleOnChangeSearchTitle}
-                            className="p-2 border border-gray-300 rounded mr-2"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Search by Year"
-                            value={searchYear}
-                            onChange={e => setSearchYear(e.target.value)}
-                            className="p-2 border border-gray-300 rounded mr-2"
-                        />
-                        <select
-                            value={searchRating}
-                            onChange={e => setSearchRating(e.target.value)}
-                            className="p-2 border border-gray-300 rounded"
-                        >
-                            <option value="">Select Rating</option>
-                            {rateList.map(rate => (
-                                <option key={rate.rateId} value={rate.rateId}>
-                                    {rate.rateId} - {rate.rateName}
-                                </option>
-                            ))}
-                        </select>
+                    <div className='flex gap-2'>
+                        <div className='flex bg-white border rounded-sm'>
+                            <IoSearchOutline className='my-auto mx-2' />
+                            <input
+                                type="text"
+                                placeholder="Search by Title"
+                                value={searchTitle}
+                                onChange={handleOnChangeSearchTitle}
+                                className=" rounded mr-2 focus:outline-none"
+                            />
+                        </div>
+                        <div className='flex bg-white border rounded-sm'>
+                            <input
+                                type="text"
+                                placeholder="Search by Year"
+                                value={searchTitle}
+                                onChange={e => setSearchYear(e.target.value)}
+                                className=" rounded mx-4 focus:outline-none"
+                            />
+                        </div>
+                        <div>
+                            <select
+                                value={searchRating}
+                                onChange={e => setSearchRating(e.target.value)}
+                                className="p-2 border border-gray-300 rounded"
+                            >
+                                <option value="">Select Rating</option>
+                                {rateList.map(rate => (
+                                    <option key={rate.rateId} value={rate.rateId}>
+                                        {rate.rateId} - {rate.rateName}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
