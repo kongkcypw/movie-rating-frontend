@@ -23,13 +23,13 @@ const About: React.FC = () => {
             </p>
             <div className='space-y-6'>
                 <div className='bg-white p-6 rounded-lg shadow-md'>
-                    <h2 className='text-2xl font-semibold text-green-500 mb-2'>G - General Audience</h2>
+                    <h2 className='text-2xl font-semibold text-green-500 mb-2'>G - General Audiences</h2>
                     <p className='text-md text-gray-600'>
                         Suitable for all ages. These films contain no content that would offend parents if viewed by children.
                     </p>
                 </div>
                 <div className='bg-white p-6 rounded-lg shadow-md'>
-                    <h2 className='text-2xl font-semibold text-yellow-500 mb-2'>PG - Parental Guidance</h2>
+                    <h2 className='text-2xl font-semibold text-yellow-500 mb-2'>PG - Parental Guidance Suggested</h2>
                     <p className='text-md text-gray-600'>
                         Some material may not be suitable for children. Parents are urged to give "parental guidance." May contain some material parents might not like for their young children.
                     </p>
@@ -41,7 +41,7 @@ const About: React.FC = () => {
                     </p>
                 </div>
                 <div className='bg-white p-6 rounded-lg shadow-md'>
-                    <h2 className='text-2xl font-semibold text-purple-500 mb-2'>MA - Mature Audiences</h2>
+                    <h2 className='text-2xl font-semibold text-purple-500 mb-2'>MA - Mature Accompanie</h2>
                     <p className='text-md text-gray-600'>
                         Restricted to mature audiences 15 years and older. These films may contain strong content and are not suitable for children under 15 years.
                     </p>

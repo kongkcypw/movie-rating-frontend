@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ErrorResponseObject, Movie, Rate } from '../../pages/ManagerMovieGUI';
 import { IoCloseCircleOutline } from "react-icons/io5";
 import ErrorMessageBox from '../response/ErrorMessageBox';
+import CustomAntYearPicker from '../CustomAntYearPicker';
 
 interface MovieEditModalProps {
     selectedMovie: Movie | undefined;
@@ -13,14 +14,14 @@ interface MovieEditModalProps {
 
 const MovieEditModal: React.FC<MovieEditModalProps> = ({ selectedMovie, closeModal, rateList, handleUpdateMovie, errorState }) => {
     const [movieTitle, setMovieTitle] = useState<string>('');
-    const [yearReleased, setYearReleased] = useState<number | ''>('');
+    const [yearReleased, setYearReleased] = useState<string | ''>('');
     const [rating, setRating] = useState<string>('');
     const [imagePreview, setImagePreview] = useState<string | ''>('');
 
     useEffect(() => {
         if (selectedMovie) {
             setMovieTitle(selectedMovie.movieTitle);
-            setYearReleased(selectedMovie.yearReleased);
+            setYearReleased((selectedMovie.yearReleased).toString());
             setRating(selectedMovie.rating);
             setImagePreview(selectedMovie.movieImageUrl || "");
         }
@@ -78,14 +79,15 @@ const MovieEditModal: React.FC<MovieEditModalProps> = ({ selectedMovie, closeMod
                         )}
                     </div>
                     <div className='mb-4'>
-                        <label className='block text-gray-700'>Year Released:</label>
-                        <input
-                            type='number'
-                            value={yearReleased}
-                            onChange={(e) => setYearReleased(Number(e.target.value))}
-                            className='w-full p-2 border border-gray-300 rounded mt-1'
-                            required
-                        />
+                        <label className='block text-gray-700'>Year release:</label>
+                        <div className='w-full  border'>
+                            <CustomAntYearPicker
+                                width={'820px'}
+                                textMarginLeft={"0"}
+                                selectedYear={yearReleased}
+                                onChange={setYearReleased}
+                            />
+                        </div>
                     </div>
                     <div className='mb-4'>
                         <label className='block text-gray-700'>Rating:</label>

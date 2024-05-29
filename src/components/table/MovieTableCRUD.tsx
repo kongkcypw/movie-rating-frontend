@@ -4,6 +4,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { Movie, Rate } from '../../pages/ManagerMovieGUI';
 import { IoAddCircle } from "react-icons/io5";
 import { IoSearchOutline } from "react-icons/io5";
+import CustomAntYearPicker from '../CustomAntYearPicker';
 
 interface MovieTableCRUDProps {
     movieList: Movie[];
@@ -80,13 +81,12 @@ const MovieTableCRUD: React.FC<MovieTableCRUDProps> = ({ movieList, rateList, ha
                                 className=" rounded mr-2 focus:outline-none"
                             />
                         </div>
-                        <div className='flex bg-white border rounded-sm'>
-                            <input
-                                type="text"
-                                placeholder="Search by Year"
-                                value={searchTitle}
-                                onChange={e => setSearchYear(e.target.value)}
-                                className=" rounded mx-4 focus:outline-none"
+                        <div className='w-full border'>
+                            <CustomAntYearPicker
+                                width={"180px"}
+                                textMarginLeft={"1"}
+                                selectedYear={searchYear}
+                                onChange={setSearchYear}
                             />
                         </div>
                         <div>
