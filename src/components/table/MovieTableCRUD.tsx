@@ -37,7 +37,7 @@ const MovieTableCRUD: React.FC<MovieTableCRUDProps> = ({ movieList, rateList, ha
             filtered = filtered.filter(movie => movie.rating.toLowerCase().includes(searchRating.toLowerCase()));
         }
         setFilteredMovies(filtered);
-        setCurrentPage(1); // Reset to first page when filters change
+        setCurrentPage(1); 
     }, [searchTitle, searchYear, searchRating, movieList]);
 
     const indexOfLastItem = currentPage * itemsPerPage;
